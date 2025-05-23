@@ -8,6 +8,8 @@
                             <!-- Dashboard -->
                             <x-layouts.sidebar-link href="{{ route('dashboard') }}" icon='fas-house'
                                 :active="request()->routeIs('dashboard*')">Dashboard</x-layouts.sidebar-link>
+                            <x-layouts.sidebar-link href="{{ route('pageSettings.index') }}" icon='fas-gear'
+                                :active="request()->routeIs('pageSettings*')">Page Settings</x-layouts.sidebar-link>
                             {{-- 
                             <!-- Components - Level 1 -->
                             <li x-data="{ open: false }">
