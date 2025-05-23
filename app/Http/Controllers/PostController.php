@@ -7,6 +7,7 @@ use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
@@ -15,6 +16,8 @@ class PostController extends Controller
      */
     public function index(): View
     {
+        Gate::authorize('posts-view');
+
         $posts = Post::all();
 
         return view('posts.index', [
@@ -27,6 +30,8 @@ class PostController extends Controller
      */
     public function create(): View
     {
+        Gate::authorize('posts-create');
+
         return view('posts.create');
     }
 
@@ -35,6 +40,8 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request): RedirectResponse
     {
+        Gate::authorize('posts-create');
+
         Post::create($request->validated());
 
         return redirect()->route('posts.index')->with('status', 'Post created successfully');
@@ -45,6 +52,8 @@ class PostController extends Controller
      */
     public function edit(Post $post): View
     {
+        Gate::authorize('posts-update');
+
         return view('posts.edit', [
             'post' => $post,
         ]);
@@ -55,6 +64,8 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post): RedirectResponse
     {
+        Gate::authorize('posts-update');
+
         $post->update($request->validated());
 
         return redirect()->route('posts.index')->with('status', 'Post updated successfully');
@@ -65,6 +76,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post): RedirectResponse
     {
+        Gate::authorize('posts-delete');
+
         $post->delete();
 
         return redirect()->route('posts.index')->with('status', 'Post deleted successfully');

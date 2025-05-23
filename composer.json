@@ -13,7 +13,8 @@
         "blade-ui-kit/blade-icons": "^1.8",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
-        "owenvoke/blade-fontawesome": "^2.9"
+        "owenvoke/blade-fontawesome": "^2.9",
+        "spatie/laravel-permission": "^6.18"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
