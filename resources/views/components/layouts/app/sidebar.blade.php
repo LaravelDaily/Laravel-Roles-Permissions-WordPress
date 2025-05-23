@@ -8,6 +8,8 @@
                             <!-- Dashboard -->
                             <x-layouts.sidebar-link href="{{ route('dashboard') }}" icon='fas-house'
                                 :active="request()->routeIs('dashboard*')">Dashboard</x-layouts.sidebar-link>
+                            <x-layouts.sidebar-link href="{{ route('posts.index') }}" icon='fas-file-alt'
+                                :active="request()->routeIs('posts*')">Posts</x-layouts.sidebar-link>
                             <x-layouts.sidebar-link href="{{ route('pageSettings.index') }}" icon='fas-gear'
                                 :active="request()->routeIs('pageSettings*')">Page Settings</x-layouts.sidebar-link>
                             {{-- 

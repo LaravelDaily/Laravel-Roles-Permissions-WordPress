@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\Settings;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('page-settings', [SettingsController::class, 'edit'])->name('pageSettings.index');
     Route::post('page-settings', [SettingsController::class, 'update'])->name('pageSettings.update');
+
+    Route::resource('posts', PostController::class);
 });
 
 require __DIR__ . '/auth.php';
