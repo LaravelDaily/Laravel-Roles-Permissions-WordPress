@@ -21,7 +21,9 @@ class SettingsController extends Controller
             ]);
         }
 
-        return view('pageSettings.edit', compact('setting'));
+        return view('pageSettings.edit', [
+            'setting' => $setting,
+        ]);
     }
 
     public function update(UpdateSettingsRequest $request)
@@ -31,6 +33,6 @@ class SettingsController extends Controller
         $setting = Setting::first();
         $setting->update($request->validated());
 
-        return redirect()->back()->with('success', 'Settings updated successfully');
+        return redirect()->back()->with('status', 'Settings updated successfully');
     }
 }
