@@ -22,7 +22,7 @@ class PostFactory extends Factory
             'content' => fake()->paragraph(),
             'is_published' => fake()->boolean(),
             'meta_title' => fake()->sentence(10),
-            'meta_description' => fake()->paragraph(10),
+            'meta_description' => fake()->sentence(10),
         ];
     }
 }
