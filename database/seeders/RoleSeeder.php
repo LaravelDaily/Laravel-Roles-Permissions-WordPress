@@ -19,6 +19,8 @@ class RoleSeeder extends Seeder
                 'create',
                 'update',
                 'delete',
+                'publish',
+                'edit-others',
             ],
             'settings' => [
                 'view',
@@ -28,20 +30,42 @@ class RoleSeeder extends Seeder
 
         foreach ($permissions as $permission => $actions) {
             foreach ($actions as $action) {
-                Permission::create(['name' => $permission.'-'.$action]);
+                Permission::create(['name' => $permission . '-' . $action]);
             }
         }
 
         $roles = [
-            'Super Admin' => [
+            'Admin' => [
                 'posts-view',
                 'posts-create',
                 'posts-update',
                 'posts-delete',
+                'posts-publish',
+                'posts-edit-others',
                 'settings-view',
                 'settings-update',
             ],
-            'Subscriber' => [],
+            'Editor' => [
+                'posts-view',
+                'posts-create',
+                'posts-update',
+                'posts-delete',
+                'posts-publish',
+                'posts-edit-others',
+            ],
+            'Author' => [
+                'posts-view',
+                'posts-create',
+                'posts-update',
+                'posts-delete',
+                'posts-publish',
+            ],
+            'Contributor' => [
+                'posts-view',
+                'posts-create',
+                'posts-update',
+                'posts-delete',
+            ],
         ];
 
         foreach ($roles as $role => $permissionsList) {

@@ -10,7 +10,7 @@ class SettingsController extends Controller
 {
     public function edit()
     {
-        Gate::authorize('settings-view');
+        Gate::authorize('view', Setting::class);
 
         $setting = Setting::first();
 
@@ -28,7 +28,7 @@ class SettingsController extends Controller
 
     public function update(UpdateSettingsRequest $request)
     {
-        Gate::authorize('settings-update');
+        Gate::authorize('update', Setting::class);
 
         $setting = Setting::first();
         $setting->update($request->validated());

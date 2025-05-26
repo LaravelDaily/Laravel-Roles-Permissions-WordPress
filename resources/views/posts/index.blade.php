@@ -72,7 +72,7 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <div class="flex justify-end space-x-2">
-                                    @can('posts-update')
+                                    @can('update', $post)
                                         <a href="{{ route('posts.edit', $post->id) }}"
                                             class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
@@ -82,7 +82,7 @@
                                             </svg>
                                         </a>
                                     @endcan
-                                    @can('posts-delete')
+                                    @can('delete', $post)
                                         <form action="{{ route('posts.destroy', $post->id) }}" method="POST"
                                             onsubmit="return confirm('Are you sure you want to delete this post?')">
                                             @csrf

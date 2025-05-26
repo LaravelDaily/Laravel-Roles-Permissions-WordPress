@@ -11,8 +11,13 @@
 |
 */
 
+use Illuminate\Support\Facades\Artisan;
+
 pest()->extend(Tests\TestCase::class)
     ->use(Illuminate\Foundation\Testing\RefreshDatabase::class)
+    ->beforeEach(function () {
+        Artisan::call('db:seed', ['--class' => 'RoleSeeder']);
+    })
     ->in('Feature');
 
 /*

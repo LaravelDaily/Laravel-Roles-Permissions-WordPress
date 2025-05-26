@@ -21,9 +21,11 @@
                         <div>
                             <x-forms.textarea label="Content" name="content" placeholder="Enter content" />
                         </div>
-                        <div>
-                            <x-forms.checkbox label="Published" name="is_published" :checked="true" value="1" />
-                        </div>
+                        @can('publish', \App\Models\Post::class)
+                            <div>
+                                <x-forms.checkbox label="Published" name="is_published" :checked="true" value="1" />
+                            </div>
+                        @endcan
                         <div>
                             <x-forms.input label="Meta Title" name="meta_title" placeholder="Enter meta title" />
                         </div>

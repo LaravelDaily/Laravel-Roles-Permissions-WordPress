@@ -16,9 +16,15 @@ class PostController extends Controller
      */
     public function index(): View
     {
-        Gate::authorize('posts-view');
+        Gate::authorize('view', Post::class);
 
-        $posts = Post::all();
+        $posts = Post::query();
+
+        if (! Gate::allows('editOthers', Post::class)) {
+            $posts->where('user_id', auth()->user()->id);
+        }
+
+        $posts = $posts->get();
 
         return view('posts.index', [
             'posts' => $posts,
@@ -30,7 +36,7 @@ class PostController extends Controller
      */
     public function create(): View
     {
-        Gate::authorize('posts-create');
+        Gate::authorize('create', Post::class);
 
         return view('posts.create');
     }
@@ -40,9 +46,17 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request): RedirectResponse
     {
-        Gate::authorize('posts-create');
+        Gate::authorize('create', Post::class);
 
-        Post::create($request->validated());
+        $data = $request->validated();
+
+        if (! Gate::allows('publish', Post::class)) {
+            $data['is_published'] = false;
+        }
+
+        Post::create(array_merge($data, [
+            'user_id' => auth()->user()->id,
+        ]));
 
         return redirect()->route('posts.index')->with('status', 'Post created successfully');
     }
@@ -52,7 +66,11 @@ class PostController extends Controller
      */
     public function edit(Post $post): View
     {
-        Gate::authorize('posts-update');
+        Gate::authorize('update', $post);
+
+        if ($post->user_id !== auth()->user()->id) {
+            Gate::authorize('editOthers', $post);
+        }
 
         return view('posts.edit', [
             'post' => $post,
@@ -64,9 +82,19 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post): RedirectResponse
     {
-        Gate::authorize('posts-update');
+        Gate::authorize('update', $post);
 
-        $post->update($request->validated());
+        if ($post->user_id !== auth()->user()->id) {
+            Gate::authorize('editOthers', $post);
+        }
+
+        $data = $request->validated();
+
+        if (! Gate::allows('publish', Post::class)) {
+            $data['is_published'] = $post->is_published; // keep the same value
+        }
+
+        $post->update($data);
 
         return redirect()->route('posts.index')->with('status', 'Post updated successfully');
     }
@@ -76,7 +104,11 @@ class PostController extends Controller
      */
     public function destroy(Post $post): RedirectResponse
     {
-        Gate::authorize('posts-delete');
+        Gate::authorize('delete', $post);
+
+        if ($post->user_id !== auth()->user()->id) {
+            Gate::authorize('editOthers', $post);
+        }
 
         $post->delete();
 

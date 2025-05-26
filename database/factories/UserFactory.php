@@ -38,7 +38,7 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
         ]);
     }
@@ -46,14 +46,28 @@ class UserFactory extends Factory
     public function admin(): static
     {
         return $this->afterCreating(function (User $user) {
-            $user->assignRole('Super Admin');
+            $user->assignRole('Admin');
         });
     }
 
-    public function subscriber(): static
+    public function editor(): static
     {
         return $this->afterCreating(function (User $user) {
-            $user->assignRole('Subscriber');
+            $user->assignRole('Editor');
+        });
+    }
+
+    public function author(): static
+    {
+        return $this->afterCreating(function (User $user) {
+            $user->assignRole('Author');
+        });
+    }
+
+    public function contributor(): static
+    {
+        return $this->afterCreating(function (User $user) {
+            $user->assignRole('Contributor');
         });
     }
 }

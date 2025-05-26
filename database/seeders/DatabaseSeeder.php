@@ -28,10 +28,24 @@ class DatabaseSeeder extends Seeder
             ]);
 
         User::factory()
-            ->subscriber()
+            ->editor()
             ->create([
-                'name' => 'Subscriber',
-                'email' => 'subscriber@example.com',
+                'name' => 'Editor',
+                'email' => 'editor@example.com',
+            ]);
+
+        User::factory()
+            ->author()
+            ->create([
+                'name' => 'Author',
+                'email' => 'author@example.com',
+            ]);
+
+        User::factory()
+            ->contributor()
+            ->create([
+                'name' => 'Contributor',
+                'email' => 'contributor@example.com',
             ]);
 
         Post::factory(10)->create();

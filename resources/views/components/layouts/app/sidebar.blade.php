@@ -8,11 +8,11 @@
                             <!-- Dashboard -->
                             <x-layouts.sidebar-link href="{{ route('dashboard') }}" icon='fas-house'
                                 :active="request()->routeIs('dashboard*')">Dashboard</x-layouts.sidebar-link>
-                            @can('posts-view')
+                            @can('view', \App\Models\Post::class)
                                 <x-layouts.sidebar-link href="{{ route('posts.index') }}" icon='fas-file-alt'
                                     :active="request()->routeIs('posts*')">Posts</x-layouts.sidebar-link>
                             @endcan
-                            @can('settings-view')
+                            @can('view', \App\Models\Setting::class)
                                 <x-layouts.sidebar-link href="{{ route('pageSettings.index') }}" icon='fas-gear'
                                     :active="request()->routeIs('pageSettings*')">Page Settings</x-layouts.sidebar-link>
                             @endcan
