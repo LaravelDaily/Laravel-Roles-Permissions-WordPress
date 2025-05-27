@@ -16,6 +16,10 @@
                                 <x-layouts.sidebar-link href="{{ route('pageSettings.index') }}" icon='fas-gear'
                                     :active="request()->routeIs('pageSettings*')">Page Settings</x-layouts.sidebar-link>
                             @endcan
+                            @can('create', \App\Models\User::class)
+                                <x-layouts.sidebar-link href="{{ route('users.index') }}" icon='fas-users'
+                                    :active="request()->routeIs('users*')">Users</x-layouts.sidebar-link>
+                            @endcan
                             {{-- 
                             <!-- Components - Level 1 -->
                             <li x-data="{ open: false }">

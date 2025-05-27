@@ -3,6 +3,7 @@
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\Settings;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,6 +26,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('page-settings', [SettingsController::class, 'update'])->name('pageSettings.update');
 
     Route::resource('posts', PostController::class);
+
+    Route::resource('users', UsersController::class);
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

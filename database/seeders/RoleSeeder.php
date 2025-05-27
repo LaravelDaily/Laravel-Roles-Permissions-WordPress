@@ -26,6 +26,11 @@ class RoleSeeder extends Seeder
                 'view',
                 'update',
             ],
+            'users' => [
+                'create',
+                'update',
+                'delete',
+            ],
         ];
 
         foreach ($permissions as $permission => $actions) {
@@ -44,6 +49,9 @@ class RoleSeeder extends Seeder
                 'posts-edit-others',
                 'settings-view',
                 'settings-update',
+                'users-create',
+                'users-update',
+                'users-delete',
             ],
             'Editor' => [
                 'posts-view',
