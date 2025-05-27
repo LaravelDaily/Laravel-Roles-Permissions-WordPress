@@ -36,6 +36,15 @@
                             </div>
                         </th>
 
+                        @can('editOthers', App\Models\Post::class)
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                <div class="flex items-center">
+                                    Author
+                                </div>
+                            </th>
+                        @endcan
+
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                             <div class="flex items-center">
@@ -62,6 +71,11 @@
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm text-gray-900 dark:text-gray-100">{{ $post->title }}</div>
                             </td>
+                            @can('editOthers', App\Models\Post::class)
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900 dark:text-gray-100">{{ $post->user->name }}</div>
+                                </td>
+                            @endcan
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm text-gray-900 dark:text-gray-100">
                                     {{ $post->is_published ? 'Yes' : 'No' }}

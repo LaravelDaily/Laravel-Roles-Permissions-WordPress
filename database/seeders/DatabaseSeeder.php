@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'editor@example.com',
             ]);
 
-        User::factory()
+        $author = User::factory()
             ->author()
             ->create([
                 'name' => 'Author',
@@ -48,6 +48,9 @@ class DatabaseSeeder extends Seeder
                 'email' => 'contributor@example.com',
             ]);
 
-        Post::factory(10)->create();
+        Post::factory()
+            ->for($author)
+            ->count(10)
+            ->create();
     }
 }

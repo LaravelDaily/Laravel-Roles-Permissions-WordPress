@@ -22,6 +22,8 @@ class PostController extends Controller
 
         if (! Gate::allows('editOthers', Post::class)) {
             $posts->where('user_id', auth()->user()->id);
+        } else {
+            $posts->with('user');
         }
 
         $posts = $posts->get();
