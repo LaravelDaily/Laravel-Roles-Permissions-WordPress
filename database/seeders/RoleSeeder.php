@@ -27,6 +27,7 @@ class RoleSeeder extends Seeder
                 'update',
             ],
             'users' => [
+                'view',
                 'create',
                 'update',
                 'delete',
@@ -49,6 +50,7 @@ class RoleSeeder extends Seeder
                 'posts-edit-others',
                 'settings-view',
                 'settings-update',
+                'users-view',
                 'users-create',
                 'users-update',
                 'users-delete',
