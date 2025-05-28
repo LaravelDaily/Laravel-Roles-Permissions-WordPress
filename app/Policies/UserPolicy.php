@@ -8,6 +8,14 @@ use Illuminate\Auth\Access\Response;
 class UserPolicy
 {
     /**
+     * Determine whether the user can view models.
+     */
+    public function view(User $user): bool
+    {
+        return $user->hasPermissionTo('users-view');
+    }
+
+    /**
      * Determine whether the user can create models.
      */
     public function create(User $user): bool

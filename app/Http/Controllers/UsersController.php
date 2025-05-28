@@ -16,7 +16,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        Gate::authorize('create', User::class);
+        Gate::authorize('view', User::class);
 
         $users = User::with('roles')->get();
 
