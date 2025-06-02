@@ -70,4 +70,11 @@ class UserFactory extends Factory
             $user->assignRole('Contributor');
         });
     }
+
+    public function withPermissions(array $permissions = []): static
+    {
+        return $this->afterCreating(function (User $user) use ($permissions) {
+            $user->syncPermissions($permissions);
+        });
+    }
 }

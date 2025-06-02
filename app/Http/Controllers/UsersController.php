@@ -7,7 +7,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
 
 class UsersController extends Controller
 {
@@ -59,13 +59,15 @@ class UsersController extends Controller
     {
         Gate::authorize('update', $user);
 
-        $user->load('roles');
+        $user->load('roles', 'permissions');
 
         $roles = Role::all();
+        $permissions = Permission::all();
 
         return view('users.edit', [
             'user' => $user,
             'roles' => $roles,
+            'permissions' => $permissions,
         ]);
     }
 
@@ -78,6 +80,7 @@ class UsersController extends Controller
 
         $user->update($request->validated());
         $user->syncRoles($request->validated('role'));
+        $user->syncPermissions($request->validated('permissions'));
 
         return redirect()->route('users.index')->with('status', 'User updated successfully');
     }

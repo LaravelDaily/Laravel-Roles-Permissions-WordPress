@@ -12,11 +12,14 @@ it('can open the page settings page', function () {
         ->assertStatus(403);
 });
 
-it('admin can open the page settings page', function () {
-    $this->actingAs(User::factory()->admin()->create())
+it('admin can open the page settings page', function (User $user) {
+    $this->actingAs($user)
         ->get(route('pageSettings.index'))
         ->assertStatus(200);
-});
+})->with([
+    fn() => User::factory()->admin()->create(),
+    fn() => User::factory()->editor()->withPermissions(['settings-view'])->create(),
+]);
 
 it('users without permission cannot open the page settings page', function (User $user) {
     $this->actingAs($user)
@@ -29,13 +32,13 @@ it('users without permission cannot open the page settings page', function (User
     fn() => User::factory()->contributor()->create(),
 ]);
 
-it('admin can update page settings', function () {
+it('admin can update page settings', function (User $user) {
     Setting::create([
         'title' => 'Laravel',
         'maintenance_mode' => '0',
     ]);
 
-    $this->actingAs(User::factory()->admin()->create())
+    $this->actingAs($user)
         ->post(route('pageSettings.update'), [
             'title' => 'Test Page',
             'maintenance_mode' => '1',
@@ -46,7 +49,10 @@ it('admin can update page settings', function () {
         'title' => 'Test Page',
         'maintenance_mode' => '1',
     ]);
-});
+})->with([
+    fn() => User::factory()->admin()->create(),
+    fn() => User::factory()->editor()->withPermissions(['settings-update'])->create(),
+]);
 
 it('users without permission cannot update page settings', function (User $user) {
     Setting::create([

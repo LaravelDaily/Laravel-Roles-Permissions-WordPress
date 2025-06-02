@@ -16,6 +16,7 @@ it('can view all posts in list', function (User $user) {
 })->with([
     fn() => User::factory()->admin()->create(),
     fn() => User::factory()->editor()->create(),
+    fn() => User::factory()->author()->withPermissions(['posts-edit-others'])->create(),
 ]);
 
 it('can edit all posts', function (User $user) {
@@ -34,6 +35,7 @@ it('can edit all posts', function (User $user) {
 })->with([
     fn() => User::factory()->admin()->create(),
     fn() => User::factory()->editor()->create(),
+    fn() => User::factory()->author()->withPermissions(['posts-edit-others'])->create(),
 ]);
 
 it('can create posts with publishing', function (User $user) {
@@ -54,6 +56,7 @@ it('can create posts with publishing', function (User $user) {
 })->with([
     fn() => User::factory()->admin()->create(),
     fn() => User::factory()->editor()->create(),
+    fn() => User::factory()->author()->withPermissions(['posts-publish'])->create(),
 ]);
 
 it('can delete all posts', function (User $user) {
@@ -65,6 +68,7 @@ it('can delete all posts', function (User $user) {
 })->with([
     fn() => User::factory()->admin()->create(),
     fn() => User::factory()->editor()->create(),
+    fn() => User::factory()->author()->withPermissions(['posts-delete', 'posts-edit-others'])->create(),
 ]);
 
 it('can view only his posts in list', function (User $user) {
@@ -109,6 +113,7 @@ it('author can create and publish his own posts', function (User $user) {
     ]);
 })->with([
     fn() => User::factory()->author()->create(),
+    fn() => User::factory()->author()->withPermissions(['posts-edit-others'])->create(),
 ]);
 
 it('author can edit his own posts', function (User $user) {
@@ -136,6 +141,7 @@ it('author can edit his own posts', function (User $user) {
 })->with([
     fn() => User::factory()->author()->create(),
     fn() => User::factory()->contributor()->create(),
+    fn() => User::factory()->author()->withPermissions(['posts-update'])->create(),
 ]);
 
 it('author can delete his own posts', function (User $user) {
@@ -153,6 +159,7 @@ it('author can delete his own posts', function (User $user) {
 })->with([
     fn() => User::factory()->author()->create(),
     fn() => User::factory()->contributor()->create(),
+    fn() => User::factory()->author()->withPermissions(['posts-delete'])->create(),
 ]);
 
 // Contributor can only view his own posts and can't publish them
@@ -223,4 +230,5 @@ it('cant delete other users posts', function (User $user) {
 })->with([
     fn() => User::factory()->author()->create(),
     fn() => User::factory()->contributor()->create(),
+    fn() => User::factory()->author()->withPermissions(['posts-delete'])->create(),
 ]);
