@@ -76,13 +76,7 @@ class UsersController extends Controller
     {
         Gate::authorize('update', $user);
 
-        $data = $request->validated();
-        if (isset($data['password']) && $data['password'] !== null) {
-            $data['password'] = Hash::make($data['password']);
-        } else {
-            unset($data['password']); // Don't update password if it's not provided
-        }
-        $user->update($data);
+        $user->update($request->validated());
         $user->syncRoles($request->validated('role'));
 
         return redirect()->route('users.index')->with('status', 'User updated successfully');

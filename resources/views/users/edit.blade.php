@@ -22,10 +22,6 @@
                                 value="{{ $user->email }}" />
                         </div>
                         <div>
-                            <x-forms.input type="password" label="Password" name="password"
-                                placeholder="Enter password" />
-                        </div>
-                        <div>
                             <x-forms.select label="Role" name="role" :options="$roles" optionKey="name"
                                 value="{{ $user->roles->pluck('name')->first() }}" optionValue="name" />
                         </div>
