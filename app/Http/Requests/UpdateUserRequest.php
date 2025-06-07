@@ -26,7 +26,7 @@ class UpdateUserRequest extends FormRequest
             'email' => ['required', 'email', 'unique:users,email,' . $this->user->id],
             'role' => ['required', 'exists:roles,name'],
             'permissions' => ['nullable', 'array'],
-            'permissions.*' => ['exists:permissions,name'],
+            'permissions.*' => ['nullable', 'exists:permissions,name', 'string'],
         ];
     }
 }

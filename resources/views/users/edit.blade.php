@@ -38,6 +38,9 @@
                                     </div>
                                 @endforeach
                             </div>
+                            @error('permissions.*')
+                                <span class="text-red-500 w-full">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
                 </div>
