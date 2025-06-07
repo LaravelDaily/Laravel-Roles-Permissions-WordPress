@@ -22,12 +22,25 @@
                                 value="{{ $user->email }}" />
                         </div>
                         <div>
-                            <x-forms.input type="password" label="Password" name="password"
-                                placeholder="Enter password" />
-                        </div>
-                        <div>
                             <x-forms.select label="Role" name="role" :options="$roles" optionKey="name"
                                 value="{{ $user->roles->pluck('name')->first() }}" optionValue="name" />
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-800 dark:text-gray-200 mb-2">
+                                Custom Permissions
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                                @foreach ($permissions as $permission)
+                                    <div class="mb-2">
+                                        <x-forms.checkbox label="{{ $permission->name }}"
+                                            name="permissions[{{ $permission->id }}]" value="{{ $permission->name }}"
+                                            :checked="$user->permissions->contains($permission->id)" />
+                                    </div>
+                                @endforeach
+                            </div>
+                            @error('permissions.*')
+                                <span class="text-red-500 w-full">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
                 </div>
